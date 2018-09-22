@@ -4,7 +4,8 @@
 my_path := $(call my-dir)
 
 ifdef SUPERUSER_EMBEDDED
-SUPERUSER_PACKAGE := com.android.settings
+SUPERUSER_PACKAGE := com.thirdparty.superuser
+include $(my_path)/Superuser/Android.mk
 else
 ifeq ($(SUPERUSER_PACKAGE),)
 SUPERUSER_PACKAGE := com.thirdparty.superuser
@@ -22,7 +23,8 @@ LOCAL_FORCE_STATIC_EXECUTABLE := true
 LOCAL_STATIC_LIBRARIES := libc libcutils
 LOCAL_C_INCLUDES := external/sqlite/dist
 LOCAL_SRC_FILES := Superuser/jni/su/su.c Superuser/jni/su/daemon.c Superuser/jni/su/activity.c Superuser/jni/su/db.c Superuser/jni/su/utils.c Superuser/jni/su/pts.c ../../sqlite/dist/sqlite3.c
-LOCAL_CFLAGS := -DSQLITE_OMIT_LOAD_EXTENSION -DREQUESTOR=\"$(SUPERUSER_PACKAGE)\"
+LOCAL_CFLAGS := -DSQLITE_OMIT_LOAD_EXTENSION -DREQUESTOR=\"$(SUPERUSER_PACKAGE)\" \
+        -Wno-unused-variable -Wno-unused-parameter
 
 ifdef SUPERUSER_PACKAGE_PREFIX
   LOCAL_CFLAGS += -DREQUESTOR_PREFIX=\"$(SUPERUSER_PACKAGE_PREFIX)\"
