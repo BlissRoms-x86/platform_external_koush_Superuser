@@ -9,6 +9,7 @@ include $(my_path)/Superuser/Android.mk
 else
 ifeq ($(SUPERUSER_PACKAGE),)
 SUPERUSER_PACKAGE := com.thirdparty.superuser
+include $(my_path)/Superuser/Android.mk
 endif
 include $(my_path)/Superuser/Android.mk
 endif
