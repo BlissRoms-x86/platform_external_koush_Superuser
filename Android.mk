@@ -4,8 +4,7 @@
 my_path := $(call my-dir)
 
 ifdef SUPERUSER_EMBEDDED
-SUPERUSER_PACKAGE := com.thirdparty.superuser
-include $(my_path)/Superuser/Android.mk
+SUPERUSER_PACKAGE := com.android.settings
 else
 ifeq ($(SUPERUSER_PACKAGE),)
 SUPERUSER_PACKAGE := com.thirdparty.superuser
