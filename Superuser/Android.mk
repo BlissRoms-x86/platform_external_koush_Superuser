@@ -7,5 +7,6 @@ LOCAL_SRC_FILES := $(call all-java-files-under,src) $(call all-java-files-under,
 LOCAL_PRIVATE_PLATFORM_APIS := true
 LOCAL_AAPT_INCLUDE_ALL_RESOURCES := true
 LOCAL_AAPT_FLAGS := --extra-packages com.koushikdutta.widgets -S $(LOCAL_PATH)/../../Widgets/Widgets/res --auto-add-overlay --rename-manifest-package $(SUPERUSER_PACKAGE)
+LOCAL_CFLAGS := -Wno-unused-variable -Wno-unused-parameter 
 
 include $(BUILD_PACKAGE)
