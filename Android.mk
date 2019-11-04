@@ -4,7 +4,7 @@
 my_path := $(call my-dir)
 
 ifdef SUPERUSER_EMBEDDED
-SUPERUSER_PACKAGE := com.android.settings
+SUPERUSER_PACKAGE := com.thirdparty.superuser
 else
 ifeq ($(SUPERUSER_PACKAGE),)
 SUPERUSER_PACKAGE := com.thirdparty.superuser
