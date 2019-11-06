@@ -22,7 +22,6 @@
  */
 
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -36,7 +35,7 @@
  * Helper functions
  */
 // Ensures all the data is written out
-static int write_blocking(int fd, char *buf, size_t bufsz) {
+static int write_blocking(int fd, char *buf, ssize_t bufsz) {
     ssize_t ret, written;
 
     written = 0;
@@ -44,7 +43,7 @@ static int write_blocking(int fd, char *buf, size_t bufsz) {
         ret = write(fd, buf + written, bufsz - written);
         if (ret == -1) return -1;
         written += ret;
-    } while (written < (ssize_t)bufsz);
+    } while (written < bufsz);
 
     return 0;
 }
@@ -107,19 +106,18 @@ static void pump_async(int input, int output) {
  */
 int pts_open(char *slave_name, size_t slave_name_size) {
     int fdm;
-    char sn_tmp[slave_name_size];
+    char sn_tmp[256];
 
     // Open master ptmx device
     fdm = open("/dev/ptmx", O_RDWR);
     if (fdm == -1) return -1;
 
     // Get the slave name
-    if (ptsname_r(fdm, sn_tmp, slave_name_size) != 0) {
+    if (ptsname_r(fdm, slave_name, slave_name_size-1)) {
         close(fdm);
         return -2;
     }
 
-    strncpy(slave_name, sn_tmp, slave_name_size);
     slave_name[slave_name_size - 1] = '\0';
 
     // Grant, then unlock

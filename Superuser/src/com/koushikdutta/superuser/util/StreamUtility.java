@@ -14,14 +14,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public class StreamUtility {
  //private static final String LOGTAG = StreamUtility.class.getSimpleName();
     public static void fastChannelCopy(final ReadableByteChannel src, final WritableByteChannel dest) throws IOException {
@@ -49,31 +41,6 @@ public class StreamUtility {
         final WritableByteChannel outputChannel = Channels.newChannel(output);
         // copy the channels
         fastChannelCopy(inputChannel, outputChannel);
-    }
-
-    public static String downloadUriAsString(String uri) throws IOException {
-	URL get = new URL(uri);
-        return downloadUriAsString(get);
-    }
-
-
-    public static String downloadUriAsString(final URL req) throws IOException {
-        InputStream in = req.openStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder result = new StringBuilder();
-        String line;
-        while((line = reader.readLine()) != null) {
-            result.append(line);
-        }
-        return result.toString(); 
-    }
-
-    public static JSONObject downloadUriAsJSONObject(String uri) throws IOException, JSONException {
-        return new JSONObject(downloadUriAsString(uri));
-    }
-
-    public static JSONObject downloadUriAsJSONObject(URL req) throws IOException, JSONException {
-        return new JSONObject(downloadUriAsString(req));
     }
 
     public static byte[] readToEndAsArray(InputStream input) throws IOException
