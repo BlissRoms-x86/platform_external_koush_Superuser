@@ -10,7 +10,6 @@ ifeq ($(SUPERUSER_PACKAGE),)
 SUPERUSER_PACKAGE := com.thirdparty.superuser
 endif
 SUPERUSER_PACKAGE := com.thirdparty.superuser
-include $(my_path)/Superuser/Android.mk
 endif
 
 LOCAL_PATH := $(my_path)
